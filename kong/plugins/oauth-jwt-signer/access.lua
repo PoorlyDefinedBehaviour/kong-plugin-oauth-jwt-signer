@@ -34,7 +34,7 @@ function _M.execute(conf)
   local token_tbl, err = oauth:request_access_token(
     conf,
     code,
-    (kong.request.get_scheme() .. '://' .. kong.request.get_host() .. kong.request.get_path())
+    (kong.request.get_scheme() .. '://' .. kong.request.get_host() ':' kong.request.get_port() .. kong.request.get_path())
   )
   if err then
     kong.response.exit(400, {["err"] = err })
