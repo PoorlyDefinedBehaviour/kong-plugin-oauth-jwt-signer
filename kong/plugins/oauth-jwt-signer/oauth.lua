@@ -89,9 +89,9 @@ function _M:request_profile(conf, access_token, id_token)
     ssl_verify = conf['oauth_ssl_verify'],
     headers = headers,
   }
-  if not res then
-    return nil, "auth info request failed: " .. (err or "unknown reason")
-  end
+  -- if not res then
+  --   return nil, "auth info request failed: " .. (err or "unknown reason")
+  -- end
 
   -- if res.status ~= 200 then
   --   return nil, "received " .. res.status .. " from " .. conf['oauth_userinfo_endpoint']
