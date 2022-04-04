@@ -33,7 +33,7 @@ function _M:request_access_token(conf, code, redirect_uri)
       body = encode_args({
         code          = code,
         client_id     = conf['oauth_client_id'],
-        -- client_secret = conf['oauth_client_secret'],
+        client_secret = conf['oauth_client_secret'],
         redirect_uri  = redirect_uri,
         grant_type    = conf['oauth_token_endpoint_grant_type'],
       }),
