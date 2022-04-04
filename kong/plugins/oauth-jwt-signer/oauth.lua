@@ -27,7 +27,7 @@ function _M:request_access_token(conf, code, redirect_uri)
     ssl_verify = conf['oauth_ssl_verify'],
   }
 
-  print(encode_args(request_body))
+  return nil, request_body
 
   local res, err = request:request_uri(conf['oauth_token_endpoint'], request_body)
   if not res then
