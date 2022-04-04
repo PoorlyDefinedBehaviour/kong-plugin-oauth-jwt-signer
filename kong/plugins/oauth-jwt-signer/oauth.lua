@@ -76,6 +76,7 @@ function _M:request_profile(conf, access_token, id_token)
                               or nil
 
   return nil,  {
+    endpoint = conf['oauth_userinfo_endpoint'] .. url_suffix,
     method = conf['oauth_userinfo_endpoint_method'],
     ssl_verify = conf['oauth_ssl_verify'],
     headers = headers,
