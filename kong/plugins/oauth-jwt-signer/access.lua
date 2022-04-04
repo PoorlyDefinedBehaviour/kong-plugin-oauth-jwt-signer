@@ -48,9 +48,7 @@ function _M.execute(conf)
   if err then
     kong.response.exit(400, {["err"] = err })
   end
-
-  kong.response.exit(400, {["profile"] = profile })
-
+  
   local claims = claims_utils:generate_claims_table(conf, profile)
   local jwt, err = jwt_utils:sign_token(conf, claims)
   if err then
