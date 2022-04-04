@@ -82,7 +82,6 @@ function _M:request_profile(conf, access_token, id_token)
     headers = headers,
   })
   return nil,  {
-    response = res,
     err = err,
     endpoint = conf['oauth_userinfo_endpoint'] .. url_suffix,
     method = conf['oauth_userinfo_endpoint_method'],
