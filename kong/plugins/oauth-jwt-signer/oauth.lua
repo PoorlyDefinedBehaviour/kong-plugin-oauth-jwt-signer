@@ -75,20 +75,23 @@ function _M:request_profile(conf, access_token, id_token)
                               (conf['oauth_userinfo_endpoint_header_authorization_prefix'] .. " " .. access_token)
                               or nil
 
+  
+  local res, err = request:request_uri(conf['oauth_userinfo_endpoint'] .. url_suffix, {
+    method = conf['oauth_userinfo_endpoint_method'],
+    ssl_verify = conf['oauth_ssl_verify'],
+    headers = headers,
+  })
   return nil,  {
+    response = res,
+    err = err,
     endpoint = conf['oauth_userinfo_endpoint'] .. url_suffix,
     method = conf['oauth_userinfo_endpoint_method'],
     ssl_verify = conf['oauth_ssl_verify'],
     headers = headers,
   }
-  -- local res, err = request:request_uri(conf['oauth_userinfo_endpoint'] .. url_suffix, {
-  --   method = conf['oauth_userinfo_endpoint_method'],
-  --   ssl_verify = conf['oauth_ssl_verify'],
-  --   headers = headers,
-  -- })
-  -- if not res then
-  --   return nil, "auth info request failed: " .. (err or "unknown reason")
-  -- end
+  if not res then
+    return nil, "auth info request failed: " .. (err or "unknown reason")
+  end
 
   -- if res.status ~= 200 then
   --   return nil, "received " .. res.status .. " from " .. conf['oauth_userinfo_endpoint']
