@@ -11,21 +11,25 @@ function _M:request_access_token(conf, code, redirect_uri)
 
   request:set_timeout(conf['oauth_token_endpoint_timeout'])
 
-  local res, err = request:request_uri(conf['oauth_token_endpoint'], {
-      method = conf['oauth_token_endpoint_method'],
-      body = encode_args({
-        code          = code,
-        client_id     = conf['oauth_client_id'],
-        client_secret = conf['oauth_client_secret'],
-        redirect_uri  = redirect_uri,
-        grant_type    = conf['oauth_token_endpoint_grant_type'],
-      }),
-      headers = {
-        ["Content-type"] = "application/x-www-form-urlencoded",
-        ["Accept"] = "application/json",
-      },
-      ssl_verify = conf['oauth_ssl_verify'],
-  })
+  local request_body =  {
+    method = conf['oauth_token_endpoint_method'],
+    body = encode_args({
+      code          = code,
+      client_id     = conf['oauth_client_id'],
+      -- client_secret = conf['oauth_client_secret'],
+      redirect_uri  = redirect_uri,
+      grant_type    = conf['oauth_token_endpoint_grant_type'],
+    }),
+    headers = {
+      ["Content-type"] = "application/x-www-form-urlencoded",
+      ["Accept"] = "application/json",
+    },
+    ssl_verify = conf['oauth_ssl_verify'],
+  }
+
+  print(request_body)
+
+  local res, err = request:request_uri(conf['oauth_token_endpoint'], request_body)
   if not res then
     return nil, (err or "auth token request failed: " .. (err or "unknown reason"))
   end
