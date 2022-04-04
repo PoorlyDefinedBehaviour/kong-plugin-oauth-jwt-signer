@@ -13,6 +13,7 @@ function _M:request_access_token(conf, code, redirect_uri)
 
   return nil, {
     method = conf['oauth_token_endpoint_method'],
+    redirect_uri = redirect_uri,
     body = encode_args({
       code          = code,
       client_id     = conf['oauth_client_id'],
