@@ -25,32 +25,32 @@ function _M:request_access_token(conf, code, redirect_uri)
       ["Accept"] = "application/json",
     },
     ssl_verify = conf['oauth_ssl_verify'],
-}
+  }
 
-  local res, err = request:request_uri(conf['oauth_token_endpoint'], {
-      method = conf['oauth_token_endpoint_method'],
-      body = encode_args({
-        code          = code,
-        client_id     = conf['oauth_client_id'],
-        -- client_secret = conf['oauth_client_secret'],
-        redirect_uri  = redirect_uri,
-        grant_type    = conf['oauth_token_endpoint_grant_type'],
-      }),
-      headers = {
-        ["Content-type"] = "application/x-www-form-urlencoded",
-        ["Accept"] = "application/json",
-      },
-      ssl_verify = conf['oauth_ssl_verify'],
-  })
-  if not res then
-    return nil, (err or "auth token request failed: " .. (err or "unknown reason"))
-  end
+  -- local res, err = request:request_uri(conf['oauth_token_endpoint'], {
+  --     method = conf['oauth_token_endpoint_method'],
+  --     body = encode_args({
+  --       code          = code,
+  --       client_id     = conf['oauth_client_id'],
+  --       -- client_secret = conf['oauth_client_secret'],
+  --       redirect_uri  = redirect_uri,
+  --       grant_type    = conf['oauth_token_endpoint_grant_type'],
+  --     }),
+  --     headers = {
+  --       ["Content-type"] = "application/x-www-form-urlencoded",
+  --       ["Accept"] = "application/json",
+  --     },
+  --     ssl_verify = conf['oauth_ssl_verify'],
+  -- })
+  -- if not res then
+  --   return nil, (err or "auth token request failed: " .. (err or "unknown reason"))
+  -- end
 
-  if res.status ~= 200 then
-    return nil, "received " .. res.status .. " from ".. conf['oauth_token_endpoint'] .. ": " .. res.body
-  end
+  -- if res.status ~= 200 then
+  --   return nil, "received " .. res.status .. " from ".. conf['oauth_token_endpoint'] .. ": " .. res.body
+  -- end
 
-  return cjson.decode(res.body), nil
+  -- return cjson.decode(res.body), nil
 end
 
 
